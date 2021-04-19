@@ -1,0 +1,188 @@
+{
+  "name": "builder-beb-sunbird",
+  "displayName": "Builder-BEB-sunBird",
+  "description": "Build D1 beb app and host directly in tomcat on single click",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.55.0"
+  },
+  "publisher": "FIS",
+  "author": {"name": "Ajay Shah", "email": "ajay90211@gmail.com"},
+  "icon": "resources/icons/electron_logo.png",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+	"onCommand:builder-beb-sunbird.helloWorld",
+    "onCommand:myExtension.sayHello",
+	"onView:configurations",
+	"onView:make-build"
+],
+  "main": "./out/extension.js",
+  "galleryBanner": {
+	"color": "#176BCC",
+	"theme": "dark"
+	},
+  "contributes": {
+	"configuration": {
+		"id":"builder-beb-sunbird",
+		"title": "D1 BEB Builder",
+		"scope":"",
+		"properties": {
+		  "sunbird.tomcatPath": {
+			"type": "string",
+			"format": "uri",
+			"default": null,
+			"scope": "application",
+			"description": "Specifies the folder path containing the Tomcat."
+		  },
+		  "sunbird.GitBashPath": {
+			"type": "string",
+			"format": "uri",
+			"default": "C:\\Program Files\\Git\\bin\\bash.exe",
+			"scope": "application",
+			"description": "Specifies the folder path containing the GitBash."
+		  },
+		  "sunbird.mavenPath": {
+			"type": "string",
+			"format": "uri",
+			"default": null,
+			"scope": "application",
+			"description": "Specifies the folder path containing the Maven."
+		  },
+		   "sunbird.antPath": {
+			"type": "string",
+			"default": null,
+			"format": "uri",
+			"scope": "application",
+			"description": "Specifies the folder path containing the Ant."
+		  },
+		   "sunbird.d1FullGlassPath": {
+			"type": "string",
+			"format": "uri",
+			"default": null,
+			"scope": "application",
+			"description": "Specifies the folder path containing the Whole folder for D1 Glass."
+		  },
+		   "sunbird.javaPath": {
+			"type": "string",
+			"format": "uri",
+			"default": null,
+			"scope": "application",
+			"description": "Specifies the folder path containing the Java JDK."
+		  },
+		  "sunbird.needPathBackup": {
+		   "type": "boolean",
+		   "default": true,
+		   "scope": "application",
+		   "description": "Do you want to take the backup of Enviornment Variables (will be save in %AppData%)?"
+		 }
+		}
+	  },
+    "commands": [
+      {
+        "command": "builder-beb-sunbird.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "myExtension.sayHello",
+        "title": "Say Hello"
+      },
+	  {
+		"command": "configurations.refreshEntry",
+		"title": "Refresh"
+	  },
+	  {
+		"command": "configurations.addEntry",
+	 	"title": "Add"
+	  },
+	  {
+		"command": "configurations.editEntry",
+		"title": "Edit"
+	  },
+	 { 
+		"command": "configurations.deleteEntry",
+		"title": "Delete"
+	 },
+	 { 
+		"command": "configurations.runCommand",
+		"title": "Run"
+	 },
+	 { 
+		"command": "make-build.runCommand",
+		"title": "Run"
+	 }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "D1BuilderSunbirdPanel",
+          "title": "D1BuilderSunbird",
+          "icon": "resources/icons/electron-activitybar.svg"
+        }
+      ]
+    },
+    "views": {
+      "D1BuilderSunbirdPanel": [
+		{
+			"id": "configurations",
+			"name": "Configurations"
+		},
+        {
+          "id": "make-build",
+          "name": "Start the build for Tomcat",
+          "contextualTitle": "D1BuilderSunbird"
+        },
+		{
+		  "id": "package-outline",
+		  "name": "Outline"
+		}
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "configurations",
+        "contents": "In order to use builder features, you have to setup the Tomcat as well as the folder that having all the folders for D1 BeB. "
+      }
+    ],
+	"menus": {
+        "view/title": [
+			
+		],
+		"view/item/context": [
+			
+			{
+				"command": "configurations.runCommand",
+				"when": "view == configurations && viewItem == commands",
+				"group": "inline"
+			},
+			{
+				"command": "make-build.runCommand",
+				"when": "view == make-build && viewItem == commands",
+				"group": "inline"
+			}
+		]
+    }       
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.55.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "eslint": "^7.19.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  }
+}
